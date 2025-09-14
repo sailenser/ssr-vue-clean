@@ -12,5 +12,6 @@ export default defineConfig({
   },
   build: {
     outDir: resolve('dist-ssr'),
+    minify: 'esbuild',
   }
 });
