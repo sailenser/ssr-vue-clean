@@ -9,7 +9,6 @@ import { createServer as createViteServer } from 'vite';
 dotenv.config();
 
 // Constants
-const isProductions = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 4587;
 const baseUrl = process.env.BASE_URL || '/';
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -40,7 +39,7 @@ async function createExpressServer() {
             template = await vite.transformIndexHtml(url, template);
 
             // 3. Получаем функцию файла результата результата серверной сборки SSR
-            const { render } = await vite.ssrLoadModule('/src/entry-server.js');
+            const { render } = await vite.ssrLoadModule('/src/entry-server.ts');
 
             // 4. Делаем рендеринг приложения в формате HTML(т.е. тут только внутрянка то что внутри страницы между body)
             const appHtml = await render(url);
@@ -57,7 +56,9 @@ async function createExpressServer() {
         }
     })
 
-    app.listen(5173)
+    app.listen(port, () => {
+        console.log(`🚀 Сервер запущен на http://localhost:${port}`);
+    });
 }
 
 createExpressServer();
