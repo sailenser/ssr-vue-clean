@@ -40,7 +40,7 @@ async function createExpressServer() {
             template = await vite.transformIndexHtml(url, template);
 
             // 3. Получаем функцию файла результата результата серверной сборки SSR
-            const { render } = await vite.ssrLoadModule('/dist-ssr/server/entry-server.js');
+            const { render } = await vite.ssrLoadModule('/src/entry-server.js');
 
             // 4. Делаем рендеринг приложения в формате HTML(т.е. тут только внутрянка то что внутри страницы между body)
             const appHtml = await render(url);
